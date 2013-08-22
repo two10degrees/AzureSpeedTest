@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+		<title>Azure Speed Test</title>
+		<style>
+			.container {
+				width:970px;
+
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container" style="background:whitesmoke">
+			<div><a href="http://www.two10degrees.com/"><img src="//two10degrees.blob.core.windows.net/two10degrees.png" class="pull-right"/></a></div>
+			<h1 style="color:grey;font-size:50px">Windows Azure Speed Test</h1>
+		</div>
+
+		<div class="container" id="wait" style="margin-top:75px">
+			<h2>The speed testing is starting...</h2>
+			<p>We are measuring the latency to the Blob Storage Service in each of the eight Windows Azure Data Centers...</p>
+		</div>
+
+		<div class="container results" style="margin-top:50px;margin-bottom:50px;display:none">
+			<h3>Blob Storage Latency</h3>
+			<canvas id="myChart" width="970" height="400"></canvas>
+			Latency times are in milliseconds. Lower is better.
+
+		</div>
+
+		<div class="container results" style="display:none">
+			<div class="row">
+				<div class="col-md-6" id="table"></div>	
+				<div class="col-md-6">
+					<p>Share your results with other people on twitter</p>
+					<div id="twitterbutton"></div>
+				</div>
+			</div>
+		</div>
+
+		<script>
+
+var ctx = document.getElementById("myChart").getContext("2d");
+
+var startTime = {};
+var history = {};
+var label = []
+var locations = {
+	"speedtestwe": "West Europe",
+	"speedtestsea" : "Souteast Asia",
+	"speedtestea": "East Asia",
+	"speedtestnsus": "North Central US",
+	"speedtestne": "North Europe",
+	"speedtestscus": "South Central US",
+	"speedtestwus": "West US",
+	"speedtesteus": "East US"
+};
+
+var colours = {
+	"speedtestwe": "#A200FF",
+	"speedtestsea" : "#E51400",
+	"speedtestea": "#1BA1E2",
+	"speedtestnsus": "#00ABA9",
+	"speedtestne": "#8CBF26",
+	"speedtestscus": "#A05000",
+	"speedtestwus": "#E671B8",
+	"speedtesteus": "#F09609"
+}
+
+$().ready(function(){
+	setInterval(run,3000)	
+});
+
+function run(){
+
+	if (i > 2){
+		$("#wait").fadeOut("slow", function(){
+			$(".results").fadeIn("slow");	
+		});
+		drawChart();	
+		drawTables();
+		
+	}
+
+	label.push(i.toString());
+	while (label.length > 20){
+		label.shift();
+	}
+	i += 1;
+	
+	for (var x in locations){
+		if (!startTime[x]){
+			startTime[x] = new Date().getTime();
+			$.ajax({
+				url: "https://" + x + ".blob.core.windows.net/cb.json",
+				dataType: "jsonp",
+				cache: false
+			});
+		}
+
+	}
+}
+
+function drawChart(){
+	var data = {
+		labels: label,
+		datasets : []
+	}
+
+	for (var x in history){
+		data.datasets.push({
+			fillColor : "rgba(255,255,255,0)",
+			strokeColor : colours[x],
+			pointColor : "rgba(220,220,220,1)",
+			pointStrokeColor : colours[x],
+			data : history[x]
+		});
+	}
+
+	console.log(data);
+	new Chart(ctx).Line(data,{animation:false});
+}
+
+function drawTables(){
+	var avg = [];
+	for (var x in history){
+		var total = 0;
+		history[x].forEach(function(y){total += y});
+		avg.push({dc: locations[x], colour: colours[x], avg: total / history[x].length});
+	}
+	console.log(avg);
+	var html = "";
+	avg.sort(function(a,b){return a.avg - b.avg});
+
+	avg.forEach(function(x){
+		html += "<tr><td style='border-left: 5px " + x.colour + " solid;'>" + x.dc + "</td><td>" + Math.round(x.avg) + "ms</td></tr>"		
+	});
+	$("#table").html("<table width='970' class='table table-bordered'><tr><th>Data Center</th><th>Average Latency</th></tr>" + html + "</table>");
+
+	drawTwitterLink(avg[0].dc, avg[0].avg);
+
+}
+
+function drawTwitterLink(dc, ms){
+	dc = dc.replace(/[ ]/g, "%20");
+	$("#twitterbutton").html("<p><a href=\"https://twitter.com/intent/tweet?button_hashtag=AzureSpeedTest&text=My%20nearest%20%23WindowsAzure%20Data%20Center%20is%20" + dc + "%20(" + Math.round(ms) + "ms).%20Find%20out%20your's%20#AzureSpeedTest\" class='btn btn-primary btn-large' data-size='large' data-related='two10degrees' data-dnt='true'>Tweet your results</a></p>");
+}
+
+function call(data){
+	if (!history[data]) history[data] = [];
+	history[data].push((new Date().getTime() - startTime[data]));
+	startTime[data] = undefined;
+	while (history[data].length  > 20){
+		history[data].shift();
+	}
+}
+
+var i = 1;
+
+		</script>
+		<script src="//two10degrees.blob.core.windows.net/Chart.min.js"></script>
+
+		<script src="//speedtestwe.blob.core.windows.net/foo.js"></script>
+		<script src="//speedtestsea.blob.core.windows.net/foo.js"></script>
+		<script src="//speedtestea.blob.core.windows.net/foo.js"></script>
+		<script src="//speedtestnsus.blob.core.windows.net/foo.js"></script>
+		<script src="//speedtestne.blob.core.windows.net/foo.js"></script>
+		<script src="//speedtestscus.blob.core.windows.net/foo.js"></script>
+		<script src="//speedtestwus.blob.core.windows.net/foo.js"></script>
+		<script src="//speedtesteus.blob.core.windows.net/foo.js"></script>
+
+	</body>
+</html>
