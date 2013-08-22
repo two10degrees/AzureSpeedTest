@@ -20,7 +20,7 @@
 
 		<div class="container" id="wait" style="margin-top:75px">
 			<h2>The speed testing is starting...</h2>
-			<p>We are measuring the latency to the Blob Storage Service in each of the eight Windows Azure Data Centers...</p>
+			<p>We are measuring the latency from your web browser to the Blob Storage Service in each of the eight Windows Azure Data Centers...</p>
 		</div>
 
 		<div class="container results" style="margin-top:30px;margin-bottom:50px;display:none">
@@ -149,7 +149,7 @@ function drawTables(){
 
 function drawTwitterLink(dc, ms){
 	dc = dc.replace(/[ ]/g, "%20");
-	$("#twitterbutton").html("<p><a href=\"https://twitter.com/intent/tweet?button_hashtag=AzureSpeedTest&text=My%20nearest%20%23WindowsAzure%20Data%20Center%20is%20" + dc + "%20(" + Math.round(ms) + "ms).%20Find%20out%20your's%20#AzureSpeedTest\" class='btn btn-primary btn-large' data-size='large' data-related='two10degrees' data-dnt='true'>Tweet your results</a></p>");
+	$("#twitterbutton").html("<p><a href=\"https://twitter.com/intent/tweet?button_hashtag=AzureSpeedTest&text=My%20nearest%20%23WindowsAzure%20Data%20Center%20is%20" + dc + "%20(" + Math.round(ms) + "ms).%20Find%20out%20your's&20http://azurespeedtest.azurewebsites.net%20#AzureSpeedTest\" class='btn btn-primary btn-large' data-size='large' data-related='two10degrees' data-dnt='true'>Tweet your results</a></p>");
 }
 
 function call(data){
