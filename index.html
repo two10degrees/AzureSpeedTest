@@ -34,7 +34,7 @@
 			<div class="row">
 				<div class="col-md-6" id="table"></div>	
 				<div class="col-md-6">
-					<p>It looks like your nearest Data Center is <span id="dc"></span>.</p>
+					<p>It looks like your nearest Data Center is <span style="font-weight:bold" id="dc"></span>.</p>
 					<p>&nbsp;</p>
 					<p>Share your results with other people on twitter</p>
 					<div id="twitterbutton"></div>
@@ -42,6 +42,8 @@
 					<p><a href="https://github.com/richorama/AzureSpeedTest">Fork</a> on GitHub</p>
 					<p>&nbsp;</p>
 					<p>Created by <a href="https://www.twitter.com/richorama/">@richorama</a> at <a href="https://www.twitter.com/two10degrees/">@two10degrees</a>.</p>
+					<p>&nbsp;</p>
+					<p><small>The latency times are indicative only, and do not represent the maxium performance achievable from Windows Azure. Use this website purely as a tool to gauge which Azure Data Center be best for your location.</small></p>
 				</div>
 			</div>
 		</div>
@@ -151,7 +153,7 @@ function drawTables(){
 
 function drawTwitterLink(dc, ms){
 	$("#dc").html(dc);
-	
+
 	dc = dc.replace(/[ ]/g, "%20");
 	$("#twitterbutton").html("<p><a href=\"https://twitter.com/intent/tweet?button_hashtag=AzureSpeedTest&text=My%20nearest%20%23WindowsAzure%20Data%20Center%20is%20" + dc + "%20(" + Math.round(ms) + "ms).%20Find%20out%20your's%20http%3A%2F%2Fazurespeedtest.azurewebsites.net%20#AzureSpeedTest\" class='btn btn-primary btn-large' data-size='large' data-related='two10degrees' data-dnt='true'>Tweet your results</a></p>");
 }
