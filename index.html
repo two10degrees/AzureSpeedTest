@@ -65,7 +65,7 @@ var locations = {
     "speedtestscus": "South Central US",
     "speedtestwus": "West US",
     "speedtesteus": "East US",
-    "cdn": "Content Distribution Network *"
+    "cdn": "Content Delivery Network *"
 };
 
 var colours = {
@@ -156,7 +156,7 @@ function drawTables(){
     avg.forEach(function(x){
         html += "<tr><td style='border-left: 5px " + x.colour + " solid;'>" + x.dc + "</td><td>" + Math.round(x.avg) + "ms</td></tr>"       
     });
-    $("#table").html("<table width='970' class='table table-bordered'><tr><th>Data Center</th><th>Average Latency</th></tr>" + html + "</table>* The Content Distribution Network is only suitable for static content.");
+    $("#table").html("<table width='970' class='table table-bordered'><tr><th>Data Center</th><th>Average Latency</th></tr>" + html + "</table>* The Content Delivery Network is only suitable for static content.");
 
     var cdnCloser = (avg[0].dc === locations.cdn);
     avg = avg.filter(function(x){ return x.dc !== locations.cdn});
