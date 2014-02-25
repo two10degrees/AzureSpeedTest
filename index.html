@@ -20,7 +20,7 @@
 
         <div class="container" id="wait" style="margin-top:75px">
             <h2>The speed test is starting...</h2>
-            <p>We are measuring the latency from your web browser to the Blob Storage Service in each of the eight Windows Azure Data Centers...</p>
+            <p>We are measuring the latency from your web browser to the Blob Storage Service in each of the ten Windows Azure Data Centers...</p>
         </div>
 
         <div class="container results" style="margin-top:30px;margin-bottom:50px;display:none">
@@ -65,6 +65,8 @@ var locations = {
     "speedtestscus": "South Central US",
     "speedtestwus": "West US",
     "speedtesteus": "East US",
+    "speedtestjpe": "Japan East",
+    "speedtestjpw": "Japan West",
     "cdn": "Content Delivery Network *"
 };
 
@@ -77,6 +79,8 @@ var colours = {
     "speedtestscus": "#A05000",
     "speedtestwus": "#E671B8",
     "speedtesteus": "#F09609",
+    "speedtestjpe": "#333",
+    "speedtestjpw": "#999",
     "cdn": "#000000"
 }
 
@@ -197,8 +201,9 @@ var i = 1;
         <script src="https://speedtestscus.blob.core.windows.net/foo.js"></script>
         <script src="https://speedtestwus.blob.core.windows.net/foo.js"></script>
         <script src="https://speedtesteus.blob.core.windows.net/foo.js"></script>
+        <script src="https://speedtestjpe.blob.core.windows.net/foo.js"></script>
+        <script src="https://speedtestjpw.blob.core.windows.net/foo.js"></script>
         <script src="http://az207485.vo.msecnd.net/foo.js"></script>
-        
 
     </body>
 </html>
