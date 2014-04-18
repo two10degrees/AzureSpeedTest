@@ -15,12 +15,12 @@
     <body>
         <div class="container" style="background:whitesmoke">
             <div><a href="http://www.two10degrees.com/"><img src="//two10degrees.blob.core.windows.net/two10degrees.png" class="pull-right"/></a></div>
-            <h1 style="color:grey;font-size:50px">Windows Azure Speed Test</h1>
+            <h1 style="color:grey;font-size:50px">Microsoft Azure Speed Test</h1>
         </div>
 
         <div class="container" id="wait" style="margin-top:75px">
             <h2>The speed test is starting...</h2>
-            <p>We are measuring the latency from your web browser to the Blob Storage Service in each of the ten Windows Azure Data Centers...</p>
+            <p>We are measuring the latency from your web browser to the Blob Storage Service in each of the ten Microsoft Azure Data Centers...</p>
         </div>
 
         <div class="container results" style="margin-top:30px;margin-bottom:50px;display:none">
@@ -44,7 +44,7 @@
                     <p>&nbsp;</p>
                     <p>Created by <a href="https://www.twitter.com/richorama/">@richorama</a> at <a href="https://www.twitter.com/two10degrees/">@two10degrees</a>.</p>
                     <p>&nbsp;</p>
-                    <p><small>The latency times are indicative only, and do not represent the maxium performance achievable from Windows Azure. Use this website purely as a tool to gauge which Azure Data Center could be the best for your location.<br/>&copy; Two10degrees 2013</small></p>
+                    <p><small>The latency times are indicative only, and do not represent the maxium performance achievable from Microsoft Azure. Use this website purely as a tool to gauge which Azure Data Center could be the best for your location.<br/>&copy; Two10degrees 2013</small></p>
                 </div>
             </div>
         </div>
@@ -178,7 +178,7 @@ function drawTwitterLink(dc, ms, cdnCloser){
     $("#dc").html(dc);
 
     dc = dc.replace(/[ ]/g, "%20");
-    $("#twitterbutton").html("<p><a href=\"https://twitter.com/intent/tweet?button_hashtag=AzureSpeedTest&text=My%20nearest%20%23WindowsAzure%20Data%20Center%20is%20" + dc + "%20(" + Math.round(ms) + "ms).%20Find%20out%20yours%20http%3A%2F%2Fazurespeedtest.azurewebsites.net%20#AzureSpeedTest\" class='btn btn-primary btn-large' data-size='large' data-related='two10degrees' data-dnt='true'>Tweet your results</a></p>");
+    $("#twitterbutton").html("<p><a href=\"https://twitter.com/intent/tweet?button_hashtag=AzureSpeedTest&text=My%20nearest%20%23Azure%20Data%20Center%20is%20" + dc + "%20(" + Math.round(ms) + "ms).%20Find%20out%20yours%20http%3A%2F%2Fazurespeedtest.azurewebsites.net%20#AzureSpeedTest\" class='btn btn-primary btn-large' data-size='large' data-related='two10degrees' data-dnt='true'>Tweet your results</a></p>");
 }
 
 function call(data){
