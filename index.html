@@ -54,7 +54,7 @@
 var ctx = document.getElementById("myChart").getContext("2d");
 
 var startTime = {};
-var history = {};
+var pingHistory = {};
 var label = []
 var locations = {
     "speedtestwe": "West Europe",
@@ -134,13 +134,13 @@ function drawChart(){
         datasets : []
     }
 
-    for (var x in history){
+    for (var x in pingHistory){
         data.datasets.push({
             fillColor : "rgba(255,255,255,0)",
             strokeColor : colours[x],
             pointColor : "rgba(220,220,220,1)",
             pointStrokeColor : colours[x],
-            data : history[x]
+            data : pingHistory[x]
         });
     }
 
@@ -150,10 +150,10 @@ function drawChart(){
 
 function drawTables(){
     var avg = [];
-    for (var x in history){
+    for (var x in pingHistory){
         var total = 0;
-        history[x].forEach(function(y){total += y});
-        avg.push({dc: locations[x], colour: colours[x], avg: total / history[x].length});
+        pingHistory[x].forEach(function(y){total += y});
+        avg.push({dc: locations[x], colour: colours[x], avg: total / pingHistory[x].length});
     }
     //console.log(avg);
     var html = "";
@@ -182,11 +182,11 @@ function drawTwitterLink(dc, ms, cdnCloser){
 }
 
 function call(data){
-    if (!history[data]) history[data] = [];
-    history[data].push((new Date().getTime() - startTime[data]));
+    if (!pingHistory[data]) pingHistory[data] = [];
+    pingHistory[data].push((new Date().getTime() - startTime[data]));
     startTime[data] = undefined;
-    while (history[data].length  > 20){
-        history[data].shift();
+    while (pingHistory[data].length  > 20){
+        pingHistory[data].shift();
     }
 }
 
