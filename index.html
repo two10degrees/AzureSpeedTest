@@ -23,7 +23,7 @@
 
         <div class="container" id="wait" style="margin-top:75px">
             <h2>The speed test is starting...</h2>
-            <p>We are measuring the latency from your web browser to the Blob Storage Service in each of the 15 Microsoft Azure Data Centers...</p>
+            <p>We are measuring the latency from your web browser to the Blob Storage Service in each of the 17 Microsoft Azure Data Centers...</p>
         </div>
 
         <div class="container results" style="margin-top:30px;margin-bottom:50px;display:none">
@@ -35,7 +35,7 @@
 
         <div class="container results" style="display:none">
             <div class="row">
-                <div class="col-md-6" id="table"></div> 
+                <div class="col-md-6" id="table"></div>
                 <div class="col-md-6">
                     <p>It looks like your nearest Data Center is <span style="font-weight:bold" id="dc"></span>. <span id="cdn"></span></p>
                     <p>&nbsp;</p>
@@ -45,7 +45,7 @@
                     <p>&nbsp;</p>
                     <p><a href="https://github.com/richorama/AzureSpeedTest">Fork</a> on GitHub.</p>
                     <p>&nbsp;</p>
-                    <p>Created by <a href="https://www.twitter.com/richorama/">@richorama</a> at <a href="https://www.twitter.com/two10degrees/">@two10degrees</a>. Thanks to <a href="https://twitter.com/mickba">Mick Badran</a> for the storage accounts in Australia.</p>
+                    <p>Created by <a href="https://www.twitter.com/richorama/">@richorama</a> at <a href="https://www.twitter.com/two10degrees/">@two10degrees</a>. Thanks to <a href="https://twitter.com/mickba">Mick Badran</a> for the storage accounts in Australia. Thanks to <a href="https://github.com/ncareau">NMC</a> for the storage accounts in Canada.</p>
                     <p>&nbsp;</p>
                     <p><small>The latency times are indicative only, and do not represent the maxium performance achievable from Microsoft Azure. Use this website purely as a tool to gauge which Azure Data Center could be the best for your location.<br/>&copy; Two10degrees 2014</small></p>
                 </div>
@@ -75,41 +75,46 @@ var locations = {
     "speedtesteus2": "East US 2",
     "mickmel": "Australia Southeast",
     "micksyd": "Australia East",
+    "speedtestcac": "Canada Central",
+    "speedtestcae": "Canada East",
     "cdn": "Content Delivery Network *"
 };
 
 var colours = {
-    "speedtestwe": "#FF0000",
-    "speedtestsea" : "#FF6600",
-    "speedtestea": "#FFCC00",
-    "speedtestnsus": "#CCFF00",
-    "speedtestne": "#66FF00",
-    "speedtestscus": "#333",
-    "speedtestwus": "#00FF66",
-    "speedtesteus": "#00FFCC",
-    "speedtestjpe": "#00CCFF",
-    "speedtestjpw": "#0066FF",
-    "speedtestbs": "#0000FF",
-    "speedtestcus": "#6600FF",
-    "speedtesteus2": "#CC00FF",    
-    "mickmel": "#FF00CC",
-    "micksyd": "#666",    
-    "cdn": "#000000"
+    "speedtestwe": "#c4d18b",
+    "speedtestsea": "#6e40c3",
+    "speedtestea": "#bed842",
+    "speedtestnsus": "#ca4cbe",
+    "speedtestne": "#65d05f",
+    "speedtestscus": "#cb4871",
+    "speedtestwus": "#6ccbad",
+    "speedtesteus": "#d25033",
+    "speedtestjpe": "#6d75c6",
+    "speedtestjpw": "#d3a03f",
+    "speedtestbs": "#4c2a5e",
+    "speedtestcus": "#567838",
+    "speedtesteus2": "#c489ba",
+    "mickmel": "#8e6035",
+    "micksyd": "#87b3cf",
+    "speedtestcac": "#642c2e",
+    "speedtestcae": "#cca393",
+    "cdn": "#3d4e4a"
 }
 
+
 $().ready(function(){
-    setInterval(run,3000)   
+    setInterval(run,3000)
 });
 
 function run(){
 
     if (i > 2){
         $("#wait").fadeOut("slow", function(){
-            $(".results").fadeIn("slow");   
+            $(".results").fadeIn("slow");
         });
-        drawChart();    
+        drawChart();
         drawTables();
-        
+
     }
 
     label.push(i.toString());
@@ -117,7 +122,7 @@ function run(){
         label.shift();
     }
     i += 1;
-    
+
     for (var x in locations){
         if (!startTime[x]){
             startTime[x] = new Date().getTime();
@@ -171,7 +176,7 @@ function drawTables(){
     avg.sort(function(a,b){return a.avg - b.avg});
 
     avg.forEach(function(x){
-        html += "<tr><td style='border-left: 5px " + x.colour + " solid;'>" + x.dc + "</td><td>" + Math.round(x.avg) + "ms</td></tr>"       
+        html += "<tr><td style='border-left: 5px " + x.colour + " solid;'>" + x.dc + "</td><td>" + Math.round(x.avg) + "ms</td></tr>"
     });
     $("#table").html("<table width='970' class='table table-bordered'><tr><th>Data Center</th><th>Average Latency</th></tr>" + html + "</table>* The Content Delivery Network is only suitable for static content.");
 
