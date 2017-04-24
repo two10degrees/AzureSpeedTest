@@ -54,7 +54,8 @@
 
         <script>
 
-var ctx = document.getElementById("myChart").getContext("2d");
+var canvas = document.getElementById("myChart");
+var ctx = canvas.getContext("2d");
 
 var startTime = {};
 var pingHistory = {};
@@ -164,6 +165,11 @@ function drawChart(){
             data : pingHistory[x]
         });
     }
+
+    // work around a bug with high DPI
+    // http://stackoverflow.com/a/21797915
+    canvas.width = 970;
+    canvas.height = 400;;
 
     //console.log(data);
     new Chart(ctx).Line(data,{animation:false});
