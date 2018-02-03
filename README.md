@@ -1,7 +1,7 @@
 AzureSpeedTest
 ==============
 
-Deprecated. New version is available here: [https://github.com/richorama/AzureSpeedTest2](richorama/AzureSpeedTest2).
+Deprecated. New version is available here: [https://github.com/richorama/AzureSpeedTest2](/richorama/AzureSpeedTest2).
 
 A web page to measure latency to Azure Blob Storage.
 
